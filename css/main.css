@@ -6,6 +6,10 @@ img {
   -webkit-user-select: none;
   -ms-user-select: none;
 
+  max-width: 90%;
+  min-width: 300px;
+  height: auto;
+
   margin: 24px;
   padding: 12px;
   background: #FFF7F7;
