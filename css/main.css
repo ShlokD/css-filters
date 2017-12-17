@@ -1,0 +1,22 @@
+img {
+  user-drag: none; 
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+
+  margin: 24px;
+  padding: 12px;
+  background: #FFF7F7;
+
+  box-shadow: 12px 12px 18px #332C35;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
