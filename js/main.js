@@ -9,6 +9,18 @@ let selectedFilter = {
   unit: 'px'
 };
 
+const filterMap = {
+  'blur': '0px',
+  'grayscale': '0%',
+  'brightness': '100%',
+  'contrast': '100%',
+  'hue-rotate': '0deg',
+  'invert': '0%',
+  'opacity': '100%',
+  'saturate': '100%',
+  'sepia': '0%'
+}
+
 const handleFilterChange = ev => {
   const options = ev.target.options;
   const selectedIndex = options.selectedIndex;
@@ -31,6 +43,18 @@ const handleMouseRelease = ev => {
   mouseDown = false;
 }
 
+const getFilters = (selectedFilter, level) => {
+  const ratio = Math.round( level * (100 * selectedFilter.normalizer));
+
+  filterMap[selectedFilter.name] = `${ratio}${selectedFilter.unit}`;  
+
+  let filterString = '';
+  for (const filter in filterMap) {
+    filterString +=`${filter}(${filterMap[filter]}) `;
+  }
+  return filterString;
+}
+
 const handleMouseMove = ev => {
   if (!mouseDown) return;
   
@@ -41,9 +65,9 @@ const handleMouseMove = ev => {
   } else {
     offsetX = ev.offsetX;
   }
-  
-  const ratio = Math.round((offsetX / ev.target.width) * (100 * selectedFilter.normalizer));
-  ev.target.style.filter = `${selectedFilter.name}(${ratio}${selectedFilter.unit})`;
+
+  const level = offsetX / ev.target.width;
+  ev.target.style.filter = getFilters(selectedFilter, level);    
 }
 
 image.addEventListener('mousedown', handleMousePress, { passive: true });
@@ -53,3 +77,9 @@ image.addEventListener('touchstart', handleMousePress, { passive: true });
 image.addEventListener('touchend', handleMouseRelease, { passive: true });
 image.addEventListener('touchmove', handleMouseMove, { passive: true });
 filterSelector.addEventListener('change', handleFilterChange);
+
+
+
+const onFileUpload = ev => {
+  console.log(ev);
+}
